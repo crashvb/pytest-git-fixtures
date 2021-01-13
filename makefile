@@ -23,11 +23,8 @@ verify:
 test:
 	python -m pytest --log-cli-level info $(args)
 
-test_all:
-	python -m pytest --log-cli-level info --allow-online $(args)
-
-test_all_verbose:
-	python -m pytest -r sx --log-cli-level debug --allow-online $(args)
+test_verbose:
+	python -m pytest -r sx --log-cli-level debug $(args)
 
 test_code:
 	# Note: https://github.com/PyCQA/pylint/issues/289
