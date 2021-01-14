@@ -9,6 +9,8 @@ Pytest fixtures to dynamically create [GIT](https://git-scm.com/) repositories f
 Update <tt>setup.py</tt> to include:
 
 ```python
+from distutils.core import setup
+
 setup(
 	tests_require=["pytest-git-fixtures"]
 )
@@ -19,7 +21,6 @@ All fixtures should be automatically included via the <tt>pytest11</tt> entry po
 ```python
 import logging
 import subprocess
-import pytest
 from pytest_git_fixtures import GITRepo  # Optional, for typing
 
 LOGGER = logging.getLogger(__name__)
@@ -81,7 +82,7 @@ Provides the path to a templated GIT configuration file that is used to initiali
 
 The`$GIT_USER_EMAIL`, `$GIT_USER_NAME`, and `$GIT_SIGNINGKEY` variables will be populated within the template during generation of the repository.
 
-### <a name="gitrepo"></a> gitrepo
+### <a name="git_repo"></a> git_repo
 
 Initializes a temporary GIT repository with a bare upstream, fork, and separate work tree.
 
@@ -110,9 +111,11 @@ The`$GIT_PATH_CLONE`, `$GIT_PATH_FORK`, `$GIT_PATH_UPSTREAM`, `$GIT_PATH_WORK_TR
 
 1. This has been coded to work with git-scm >= 2.6.
 2. The generated repository is very simple. TBD if this will be expanded to support a more realistic configuration.
-4. The embedded GIT configuration is configured to sign commits and tags by default. This can cause complications with externally configured instances of GnuPG, unless they are configured to use loopback for pinentry, or you like testing with interactive passphrase entry ;) . It is recommended that [pytest-gnupg-fixtures](https://pypi.org/project/pytest-gnupg-fixtures/) be used. This packages provides a `gpg-wrapper` script that can be used in conjuction with the git `gpg.program` configuration value as follows:
+4. The embedded GIT configuration is configured to sign commits and tags by default. This can cause complications with externally configured instances of GnuPG, unless they are configured to use loopback for pinentry, or you like testing with interactive passphrase entry ;) . It is recommended that [pytest-gnupg-fixtures](https://pypi.org/project/pytest-gnupg-fixtures/) be used. This package provides a `gpg-wrapper` script that can be used in conjunction with the git `gpg.program` configuration value as follows:
 
 ```python
+import subprocess
+from pytest_git_fixtures import GITRepo  # Optional, for typing
 def test_something_with_gnupg(git_repo: GITRepo):
     subprocess.run(
         [
@@ -125,7 +128,7 @@ def test_something_with_gnupg(git_repo: GITRepo):
         ],
         check=True,
         cwd=str(git_repo.clone_work_tree),
-        env={**environment, **{"GNUPG_PASSPHRASE": git_repo.gnupg_keypair.passphrase}},
+        env={"GNUPG_PASSPHRASE": git_repo.gnupg_keypair.passphrase},
     )
 ```
 

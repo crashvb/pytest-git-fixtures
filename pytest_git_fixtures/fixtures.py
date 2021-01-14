@@ -33,6 +33,7 @@ class GITRepo(NamedTuple):
     clone_work_tree: Path
     upstream: Path
     work_tree: Path
+    work_tree_git_dir: Path
 
 
 @pytest.fixture
@@ -91,6 +92,9 @@ def git_repo(
     path_fork = tmp_path.joinpath("fork")
     path_upstream = tmp_path.joinpath("upstream")
     path_work_tree = tmp_path.joinpath("work-tree")
+    path_work_tree_git_dir = path_upstream.joinpath("worktrees").joinpath(
+        path_work_tree.name
+    )
     subprocess.run(
         ["/bin/sh", str(git_init_script)],
         check=True,
@@ -123,6 +127,7 @@ def git_repo(
         clone_work_tree=path_clone,
         upstream=path_upstream,
         work_tree=path_work_tree,
+        work_tree_git_dir=path_work_tree_git_dir,
     )
     shutil.rmtree(tmp_path, ignore_errors=True)
 

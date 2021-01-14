@@ -8,7 +8,7 @@ git init --bare "${GIT_PATH_UPSTREAM}"
 
 # Clone the bare repository to populate the master branch
 # (or it will not be possible to create a work tree) ...
-git clone "${GIT_PATH_UPSTREAM}" "${GIT_PATH_CLONE}"
+git clone --dissociate --no-hardlinks --no-local "${GIT_PATH_UPSTREAM}" "${GIT_PATH_CLONE}"
 
 # Add the remote to the fork ...
 cd "${GIT_PATH_CLONE}" && git remote add fork "${GIT_PATH_FORK}"
@@ -24,5 +24,5 @@ cd "${GIT_PATH_CLONE}" && \
 	git push origin master
 
 # Create a work tree for the master branch ...
-git --git-dir="${GIT_PATH_UPSTREAM}" worktree add --force "${GIT_PATH_WORK_TREE}" master
+git --git-dir="${GIT_PATH_UPSTREAM}" worktree add -b dev "${GIT_PATH_WORK_TREE}"
 
