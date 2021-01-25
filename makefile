@@ -13,6 +13,8 @@ black:
 
 build:
 	python setup.py bdist_wheel sdist
+	tar --file dist/*.tar.gz --list --verbose
+	unzip -l dist/*.whl
 
 sign:
 	find dist -type f \( -iname "*.tar.gz" -o -iname "*.whl" \) -exec gpg --armor --detach-sig --sign {} \;
