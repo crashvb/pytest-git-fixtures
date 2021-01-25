@@ -16,6 +16,13 @@ build:
 	tar --file dist/*.tar.gz --list --verbose
 	unzip -l dist/*.whl
 
+deploy: clean build sign
+
+	python -m twine upload dist/*
+
+deploy-test: clean build sign
+	python -m twine upload --repository testpypi dist/*
+
 release:
 	@[ "X$(shell git status --porcelain 2>&1)" = "X" ] || (echo "GIT work tree is dirty!" && /bin/false)
 	$(eval package_name := $(shell sed --expression='s/_/-/g' --expression='s/^.*name="\(.*\)",/\1/p' --quiet setup.py))
@@ -38,14 +45,8 @@ release:
 sign:
 	find dist -type f \( -iname "*.tar.gz" -o -iname "*.whl" \) -exec gpg --armor --detach-sig --sign {} \;
 
-verify:
-	find dist -type f -iname "*.asc" -exec gpg --verify {} \;
-
 test:
 	python -m pytest --log-cli-level info $(args)
-
-test-verbose:
-	python -m pytest -r sx --log-cli-level debug $(args)
 
 test-code:
 	# Note: https://github.com/PyCQA/pylint/issues/289
@@ -59,11 +60,8 @@ test-package: build
 	$(tmpdir)/bin/python -m pytest
 	rm --force --recursive $(tmpdir)
 
-deploy: clean build sign
-	python -m twine upload dist/*
-
-deploy-test: clean build sign
-	python -m twine upload --repository testpypi dist/*
+test-verbose:
+	python -m pytest -r sx --log-cli-level debug $(args)
 
 .venv:
 	python -m venv .venv
@@ -71,6 +69,9 @@ deploy-test: clean build sign
 	.venv/bin/python -m pip install --editable .[dev]
 
 venv: .venv
+
+verify:
+	find dist -type f -iname "*.asc" -exec gpg --verify {} \;
 
 clean:
 	rm --force --recursive .eggs build dist *.egg-info
