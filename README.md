@@ -163,12 +163,6 @@ def test_something_with_gnupg(git_repo: GITRepo):
     )
 ```
 
-## Changelog
-
-### 0.1.0 (2021-01-11)
-
-* Initial release.
-
 ## Development
 
 [Source Control](https://github.com/crashvb/pytest-git-fixtures)

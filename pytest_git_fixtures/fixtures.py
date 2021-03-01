@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name,too-many-arguments,too-many-locals
 
 """The actual fixtures, you found them ;)."""
 
