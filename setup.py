@@ -40,6 +40,6 @@ setup(
     packages=find_packages(),
     package_data={"pytest_git_fixtures": ["gitconfig", "git-init.sh"]},
     test_suite="tests",
-    url="https://pypi.org/project/pytest-git-fixtures/",
+    url="https://github.com/crashvb/pytest-git-fixtures",
     version=find_version("pytest_git_fixtures", "__init__.py"),
 )
