@@ -5,6 +5,7 @@
 """The actual fixtures, you found them ;)."""
 
 import logging
+import os
 import shutil
 import subprocess
 
@@ -60,6 +61,16 @@ def git_commit_message() -> str:
 
 
 @pytest.fixture
+def git_debug_script(
+    pytestconfig: "_pytest.config.Config", tmp_path_factory: TempPathFactory
+) -> Generator[Path, None, None]:
+    """Provides the location of the GIT debugging script; this fixture is intentionally omitted from the readme."""
+    name = "git-debug.sh"
+    yield from get_user_defined_file(pytestconfig, name)
+    yield from get_embedded_file(tmp_path_factory, name=name)
+
+
+@pytest.fixture
 def git_init_script(
     pytestconfig: "_pytest.config.Config", tmp_path_factory: TempPathFactory
 ) -> Generator[Path, None, None]:
@@ -98,6 +109,7 @@ def git_remote_name_upstream() -> str:
 def git_repo(
     gitconfig: Path,
     git_commit_message: str,
+    git_debug_script: Path,
     git_init_script: Path,
     git_initial_branch_name: str,
     git_remote_name_fork: str,
@@ -172,6 +184,7 @@ def git_repo(
                 "GNUPG_PASSPHRASE": gnupg_keypair.passphrase,
             },
         },
+        stderr=subprocess.STDOUT,
     )
 
     LOGGER.debug("  clone             : %s", path_clone)
@@ -186,6 +199,24 @@ def git_repo(
     LOGGER.debug("  upstream (bare)   : %s", path_upstream)
     LOGGER.debug("  work tree         : %s", path_work_tree)
     LOGGER.debug("  work tree branch  : %s", git_work_tree_branch_name)
+
+    if "PGITF_DEBUG" in os.environ:
+        output = subprocess.run(
+            ["/bin/sh", str(git_debug_script)],
+            check=False,
+            cwd=str(tmp_path),
+            env={
+                **environment,
+                **{
+                    "GIT_PATH_CLONE": path_clone,
+                    "GIT_PATH_FORK": path_fork,
+                    "GIT_PATH_UPSTREAM": path_upstream,
+                    "GIT_PATH_WORK_TREE": path_work_tree,
+                },
+            },
+            stderr=subprocess.STDOUT,
+        )
+        LOGGER.debug(output)
 
     yield GITRepo(
         clone_git_dir=path_clone.joinpath(".git"),

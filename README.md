@@ -163,6 +163,12 @@ def test_something_with_gnupg(git_repo: GITRepo):
     )
 ```
 
+### Environment Variables
+
+| Variable | Default Value | Description |
+| ---------| ------------- | ----------- |
+| PGITF_DEBUG | | Adds additional debug logging.
+
 ## Development
 
 [Source Control](https://github.com/crashvb/pytest-git-fixtures)
