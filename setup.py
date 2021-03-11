@@ -38,7 +38,7 @@ setup(
     long_description_content_type="text/markdown",
     name="pytest_git_fixtures",
     packages=find_packages(),
-    package_data={"pytest_git_fixtures": ["gitconfig", "git-init.sh"]},
+    package_data={"pytest_git_fixtures": ["gitconfig", "git-debug.sh", "git-init.sh"]},
     test_suite="tests",
     url="https://github.com/crashvb/pytest-git-fixtures",
     version=find_version("pytest_git_fixtures", "__init__.py"),
