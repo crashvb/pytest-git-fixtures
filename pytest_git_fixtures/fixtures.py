@@ -216,7 +216,6 @@ def git_repo(
             },
             stderr=subprocess.STDOUT,
         )
-        LOGGER.debug(output)
 
     yield GITRepo(
         clone_git_dir=path_clone.joinpath(".git"),
