@@ -1,3 +1,4 @@
+.coverage
 .eggs
 .idea
 .venv
@@ -6,5 +7,6 @@ dist
 tmp
 
 *.egg-info
+*.local
 *.pyc
 *.swp

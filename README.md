@@ -1,5 +1,13 @@
 # pytest-git-fixtures
 
+[![pypi version](https://img.shields.io/pypi/v/pytest-git-fixtures.svg)](https://pypi.org/project/pytest-git-fixtures)
+[![build status](https://github.com/crashvb/pytest-git-fixtures/actions/workflows/main.yml/badge.svg)](https://github.com/crashvb/pytest-git-fixtures/actions)
+[![coverage status](https://coveralls.io/repos/github/crashvb/pytest-git-fixtures/badge.svg)](https://coveralls.io/github/crashvb/pytest-git-fixtures)
+[![python versions](https://img.shields.io/pypi/pyversions/pytest-git-fixtures.svg?logo=python&logoColor=FBE072)](https://pypi.org/project/pytest-git-fixtures)
+[![linting](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
+[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![license](https://img.shields.io/github/license/crashvb/pytest-git-fixtures.svg)](https://github.com/crashvb/pytest-git-fixtures/blob/master/LICENSE)
+
 ## Overview
 
 Pytest fixtures to dynamically create [GIT](https://git-scm.com/) repositories for testing.
@@ -54,8 +62,6 @@ def test_sanity_check(git_repo: GITRepo):
     assert "Good signature from" in stdout
     assert git_repo.commit_message in stdout
 ```
-
-* Tested with python 3.8
 
 ## Installation
 ### From [pypi.org](https://pypi.org/project/pytest-git-fixtures/)
