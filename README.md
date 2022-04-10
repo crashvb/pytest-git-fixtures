@@ -6,7 +6,7 @@
 [![python versions](https://img.shields.io/pypi/pyversions/pytest-git-fixtures.svg?logo=python&logoColor=FBE072)](https://pypi.org/project/pytest-git-fixtures)
 [![linting](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 [![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![license](https://img.shields.io/github/license/crashvb/pytest-git-fixtures.svg)](https://github.com/crashvb/pytest-git-fixtures/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/crashvb/pytest-git-fixtures.svg)](https://github.com/crashvb/pytest-git-fixtures/blob/master/LICENSE.md)
 
 ## Overview
 
