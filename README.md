@@ -173,7 +173,7 @@ def test_something_with_gnupg(git_repo: GITRepo):
 
 | Variable | Default Value | Description |
 | ---------| ------------- | ----------- |
-| PGITF_DEBUG | | Adds additional debug logging.
+| PGITF\_DEBUG | | Adds additional debug logging.
 
 ## Development
 
